@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'checkstyle'
 }
 
 group = 'pl.sii'
@@ -15,8 +16,21 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.mongodb:mongodb-driver:3.6.3'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+checkstyleMain {
+	source ='src/main/java'
+	configFile file("config/checkstyle/checkstyle-main.xml")
+	configProperties.checkstyleSuppressionsPath = file("config/checkstyle-main-suppressions.xml").absolutePath
+}
+
+checkstyleTest {
+	source ='src/test/java'
+	configFile file("config/checkstyle/checkstyle-tests.xml")
+	configProperties.checkstyleSuppressionsPath = file("config/checkstyle-tests-suppressions.xml").absolutePath
 }

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RegisterupApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(RegisterupApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RegisterupApplication.class, args);
+    }
 
 }
