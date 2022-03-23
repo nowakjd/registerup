@@ -9,7 +9,10 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import pl.sii.registerup.subscription.persistance.SubscriptionRepository;
-import pl.sii.registerup.subscription.service.model.Subscription;
+import pl.sii.registerup.subscription.service.mapper.SubscriptionInputMapper;
+import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
+import pl.sii.registerup.subscription.service.model.SubscriptionInput;
+import pl.sii.registerup.subscription.service.model.SubscriptionOutput;
 
 import java.util.Optional;
 
@@ -18,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class SubscriptionCommandServiceTest {
+class SubscriptionInputCommandServiceTest {
     private SubscriptionCommandService underTest;
     private SubscriptionRepository repository;
     private EmailValidator emailValidator;
@@ -28,19 +31,24 @@ class SubscriptionCommandServiceTest {
         repository = Mockito.mock(SubscriptionRepository.class);
         when(repository.save(any())).thenAnswer(a -> a.getArgument(0));
         emailValidator = new EmailValidator();
-        underTest = new SubscriptionCommandService(repository, emailValidator);
+        underTest = new SubscriptionCommandService(
+                repository,
+                emailValidator,
+                new SubscriptionInputMapper(),
+                new SubscriptionOutputMapper()
+        );
     }
 
     @Test
     @DisplayName("Should create subscription when correct email is given")
     void happyPath() {
         //given
-        Subscription correctSubscription = getValidSubscription();
+        SubscriptionInput correctSubscriptionInput = getValidSubscription();
         when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
-        Subscription result = underTest.createSubscription(correctSubscription);
+        SubscriptionOutput result = underTest.createSubscription(correctSubscriptionInput);
         //then
-        assertThat(result.getEmail().equals(correctSubscription.getEmail()));
+        assertThat(result.getEmail().equals(correctSubscriptionInput.getEmail()));
     }
 
     @ParameterizedTest
@@ -51,10 +59,10 @@ class SubscriptionCommandServiceTest {
     @DisplayName("Should throw exception when incorrect email is given) ")
     void wrongEmail(String email) {
         //given
-        Subscription subscription = getSubscriptionWithEmail(email);
+        SubscriptionInput subscriptionInput = getSubscriptionWithEmail(email);
         when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscription);
+        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscriptionInput);
         //then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.hasErrors()).isTrue();
@@ -68,11 +76,11 @@ class SubscriptionCommandServiceTest {
     @DisplayName("Should throw exception when email is empty")
     void firstNameEmpty(String email) {
         // given
-        Subscription subscription = getSubscriptionWithEmail(email);
+        SubscriptionInput subscriptionInput = getSubscriptionWithEmail(email);
         when(repository.save(any())).thenAnswer(a -> a.getArgument(0));
         when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscription);
+        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscriptionInput);
         // then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.getErrors())
@@ -84,24 +92,24 @@ class SubscriptionCommandServiceTest {
     @DisplayName("Should throw exception when email is already in database")
     void emailAlreadyInDatabase(){
         //given
-        Subscription correctSubscription = getValidSubscription();
+        SubscriptionInput correctSubscriptionInput = getValidSubscription();
         when(repository.findByEmail(any())).thenAnswer(a -> a.getArgument(0));
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(correctSubscription);
+        Executable lambdaUnderTest = ()-> underTest.createSubscription(correctSubscriptionInput);
         // then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.getErrors())
                 .hasSize(1)
-                .allMatch(e -> e.contains(correctSubscription.getEmail() + " is already in database"));
+                .allMatch(e -> e.contains(correctSubscriptionInput.getEmail() + " is already in database"));
 
     }
 
-    private Subscription getValidSubscription() {
-        return new Subscription("email@email.com");
+    private SubscriptionInput getValidSubscription() {
+        return new SubscriptionInput("email@email.com");
     }
 
-    private Subscription getSubscriptionWithEmail(String email) {
-        return new Subscription(email);
+    private SubscriptionInput getSubscriptionWithEmail(String email) {
+        return new SubscriptionInput(email);
     }
 
 
