@@ -32,7 +32,11 @@ public class SubscriptionCommandService {
         emailValidator.validate(subscriptionInput);
         SubscriptionEntity subscriptionEntity = subscriptionInputMapper.map(subscriptionInput);
 
-        SubscriptionEntity newSubscription = subscriptionRepository.save(subscriptionEntity);
-        return subscriptionOutputMapper.map(newSubscription);
+        try {
+            SubscriptionEntity newSubscription = subscriptionRepository.save(subscriptionEntity);
+            return subscriptionOutputMapper.map(newSubscription);
+        } catch (RuntimeException e) { // TODO change exception
+            throw new SubscriptionCreationException();
+        }
     }
 }

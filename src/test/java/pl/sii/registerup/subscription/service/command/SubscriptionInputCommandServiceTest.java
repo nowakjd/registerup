@@ -48,7 +48,7 @@ class SubscriptionInputCommandServiceTest {
         //when
         SubscriptionOutput result = underTest.createSubscription(correctSubscriptionInput);
         //then
-        assertThat(result.getEmail().equals(correctSubscriptionInput.getEmail()));
+        assertThat(result.getEmail()).isEqualTo(correctSubscriptionInput.getEmail());
     }
 
     @ParameterizedTest
@@ -90,12 +90,14 @@ class SubscriptionInputCommandServiceTest {
 
     @Test
     @DisplayName("Should throw exception when email is already in database")
-    void emailAlreadyInDatabase(){
+    void emailAlreadyInDatabase() {
         //given
         SubscriptionInput correctSubscriptionInput = getValidSubscription();
-        when(repository.findByEmail(any())).thenAnswer(a -> a.getArgument(0));
+        when(repository.save(any())).thenThrow(new RuntimeException());
+
         //when
         Executable lambdaUnderTest = ()-> underTest.createSubscription(correctSubscriptionInput);
+
         // then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.getErrors())
