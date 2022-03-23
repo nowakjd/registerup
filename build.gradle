@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'checkstyle'
+	id 'jacoco'
 }
 
 group = 'pl.sii'
@@ -25,6 +26,22 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport{
+	dependsOn test
+	reports {
+		xml.enabled true
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+			        "pl/sii/registerup/configuration/*"
+			])
+		}))
+	}
 }
 
 checkstyleMain {
