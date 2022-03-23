@@ -13,10 +13,10 @@ import javax.transaction.Transactional;
 @Transactional
 @Service
 public class SubscriptionCommandService {
-    private SubscriptionRepository subscriptionRepository;
-    private EmailValidator emailValidator;
-    private SubscriptionInputMapper subscriptionInputMapper;
-    private SubscriptionOutputMapper subscriptionOutputMapper;
+    private final SubscriptionRepository subscriptionRepository;
+    private final EmailValidator emailValidator;
+    private final SubscriptionInputMapper subscriptionInputMapper;
+    private final SubscriptionOutputMapper subscriptionOutputMapper;
 
     public SubscriptionCommandService(SubscriptionRepository subscriptionRepository,
                                       EmailValidator emailValidator,
@@ -35,8 +35,10 @@ public class SubscriptionCommandService {
         try {
             SubscriptionEntity newSubscription = subscriptionRepository.save(subscriptionEntity);
             return subscriptionOutputMapper.map(newSubscription);
-        } catch (RuntimeException e) { // TODO change exception
-            throw new SubscriptionCreationException();
+        } catch (RuntimeException e) {
+            SubscriptionCreationException exception = new SubscriptionCreationException();
+            exception.addError(subscriptionInput.getEmail() + " is already in database");
+            throw exception;
         }
     }
 }

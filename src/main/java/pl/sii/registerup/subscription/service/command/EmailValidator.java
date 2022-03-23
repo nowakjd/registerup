@@ -23,8 +23,9 @@ public class EmailValidator {
             exception.addError("Email is required");
         }
 
-        if (isEmailInvalid(subscriptionInput.getEmail())) {
-            exception.addError("Email must be valid");
+        if (!isEmpty(subscriptionInput.getEmail()) &&
+                isEmailInvalid(subscriptionInput.getEmail())) {
+            exception.addError(subscriptionInput.getEmail() + "  is not a valid email");
         }
 
         if (!exception.getErrors().isEmpty()) {
