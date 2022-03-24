@@ -1,8 +1,8 @@
 package pl.sii.registerup.subscription.service.model;
 
 public class SubscriptionOutput {
-    private Long id;
-    private String email;
+    private final Long id;
+    private final String email;
 
     public SubscriptionOutput(Long id, String email) {
         this.id = id;

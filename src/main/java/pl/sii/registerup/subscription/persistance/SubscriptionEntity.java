@@ -1,12 +1,11 @@
 package pl.sii.registerup.subscription.persistance;
 
-import javax.persistence.*;
 
-@Entity
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class SubscriptionEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+
     private Long id;
 
     private String email;

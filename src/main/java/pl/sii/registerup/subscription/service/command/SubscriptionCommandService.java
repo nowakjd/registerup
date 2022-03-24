@@ -8,9 +8,7 @@ import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
 import pl.sii.registerup.subscription.service.model.SubscriptionInput;
 import pl.sii.registerup.subscription.service.model.SubscriptionOutput;
 
-import javax.transaction.Transactional;
 
-@Transactional
 @Service
 public class SubscriptionCommandService {
     private final SubscriptionRepository subscriptionRepository;
@@ -28,7 +26,7 @@ public class SubscriptionCommandService {
         this.subscriptionOutputMapper = subscriptionOutputMapper;
     }
 
-    public SubscriptionOutput createSubscription(SubscriptionInput subscriptionInput){
+    public SubscriptionOutput createSubscription(SubscriptionInput subscriptionInput) {
         emailValidator.validate(subscriptionInput);
         SubscriptionEntity subscriptionEntity = subscriptionInputMapper.map(subscriptionInput);
 

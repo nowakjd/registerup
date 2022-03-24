@@ -1,9 +1,11 @@
 package pl.sii.registerup.subscription.service.command;
 
+import org.springframework.stereotype.Component;
 import pl.sii.registerup.subscription.service.model.SubscriptionInput;
 
 import java.util.regex.Pattern;
 
+@Component
 public class EmailValidator {
     private static final Pattern EMAIL_REGEX = Pattern
             .compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]"
@@ -23,8 +25,8 @@ public class EmailValidator {
             exception.addError("Email is required");
         }
 
-        if (!isEmpty(subscriptionInput.getEmail()) &&
-                isEmailInvalid(subscriptionInput.getEmail())) {
+        if (!isEmpty(subscriptionInput.getEmail())
+                && isEmailInvalid(subscriptionInput.getEmail())) {
             exception.addError(subscriptionInput.getEmail() + "  is not a valid email");
         }
 

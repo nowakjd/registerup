@@ -16,8 +16,8 @@ import pl.sii.registerup.subscription.service.model.SubscriptionOutput;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -62,12 +62,12 @@ class SubscriptionInputCommandServiceTest {
         SubscriptionInput subscriptionInput = getSubscriptionWithEmail(email);
         when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscriptionInput);
+        Executable lambdaUnderTest = () -> underTest.createSubscription(subscriptionInput);
         //then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.hasErrors()).isTrue();
         assertThat(exception.getErrors()).hasSize(1);
-        assertThat(exception.getErrors()).anyMatch(s-> s.equals(email + "  is not a valid email"));
+        assertThat(exception.getErrors()).anyMatch(s -> s.equals(email + "  is not a valid email"));
     }
 
     @ParameterizedTest
@@ -80,7 +80,7 @@ class SubscriptionInputCommandServiceTest {
         when(repository.save(any())).thenAnswer(a -> a.getArgument(0));
         when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(subscriptionInput);
+        Executable lambdaUnderTest = () -> underTest.createSubscription(subscriptionInput);
         // then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);
         assertThat(exception.getErrors())
@@ -96,7 +96,7 @@ class SubscriptionInputCommandServiceTest {
         when(repository.save(any())).thenThrow(new RuntimeException());
 
         //when
-        Executable lambdaUnderTest = ()-> underTest.createSubscription(correctSubscriptionInput);
+        Executable lambdaUnderTest = () -> underTest.createSubscription(correctSubscriptionInput);
 
         // then
         SubscriptionCreationException exception = assertThrows(SubscriptionCreationException.class, lambdaUnderTest);

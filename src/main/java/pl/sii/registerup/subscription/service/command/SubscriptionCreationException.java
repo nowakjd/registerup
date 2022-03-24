@@ -4,16 +4,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
-public class SubscriptionCreationException extends RuntimeException{
-    private Collection<String> errors = new HashSet<>();
-    void addError(String error){
+public class SubscriptionCreationException extends RuntimeException {
+    private final Collection<String> errors = new HashSet<>();
+
+    void addError(String error) {
         errors.add(error);
     }
-    boolean hasErrors(){
+
+    boolean hasErrors() {
         return !errors.isEmpty();
     }
 
-    Collection<String> getErrors(){
+    Collection<String> getErrors() {
         return Collections.unmodifiableCollection(errors);
     }
 }

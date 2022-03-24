@@ -1,7 +1,7 @@
 package pl.sii.registerup.subscription.service.model;
 
 public class SubscriptionInput {
-    private String email;
+    private final String email;
 
     public SubscriptionInput(String email) {
         this.email = email;
