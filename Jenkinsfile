@@ -27,7 +27,9 @@ pipeline {
             agent any
             steps {
                 unstash 'jars'
-                // TODO build docker image
+                script {
+                    image = docker.build('registerup:latest')
+                }
             }
         }
     }
