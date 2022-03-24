@@ -18,7 +18,7 @@ pipeline {
                 timeout(3) {
                     sh './gradlew clean check'
                 }
-                junit 'build/test-results/test/binary/*.xml'
+                junit 'build/test-results/test/*.xml'
                 jacoco()
                 stash includes: 'build/libs/*.jar', name: 'jars'
             }
