@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 timeout(3) {
-                    sh './gradlew clean check'
+                    sh './gradlew clean build'
                 }
                 junit 'build/test-results/test/*.xml'
                 jacoco()
