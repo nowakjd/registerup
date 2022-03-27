@@ -11,7 +11,7 @@ import pl.sii.registerup.subscription.service.model.SubscriptionInput;
 import pl.sii.registerup.subscription.service.model.SubscriptionOutput;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1")
 public class SubscriptionController {
     final SubscriptionCommandService subscriptionCommandService;
 
@@ -20,7 +20,7 @@ public class SubscriptionController {
         this.subscriptionCommandService = subscriptionCommandService;
     }
 
-    @PostMapping("/speakers")
+    @PostMapping("/subscriber")
     ResponseEntity<SubscriptionOutput> createSubscription(@RequestBody SubscriptionInput subscriptionInput) {
         return new ResponseEntity<>(subscriptionCommandService.createSubscription(subscriptionInput), HttpStatus.OK);
     }
