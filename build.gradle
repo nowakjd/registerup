@@ -21,7 +21,8 @@ jar {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.spt-development:spt-development-logging-spring:2.0.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.mongodb:mongo-java-driver:3.12.10'
 }
 
