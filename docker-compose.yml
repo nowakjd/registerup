@@ -36,4 +36,4 @@ services:
       MONGO_PASSWORD: ${MONGO_INITDB_ROOT_USERNAME:-user}
       MONGO_USER: ${MONGO_INITDB_ROOT_PASSWORD:-user}
     ports:
-      - 8080:8070
+      - 9000:8070
