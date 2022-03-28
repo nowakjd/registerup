@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
+import org.springframework.dao.DuplicateKeyException;
 import pl.sii.registerup.subscription.persistance.SubscriptionRepository;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionInputMapper;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
@@ -93,7 +94,7 @@ class SubscriptionInputCommandServiceTest {
     void emailAlreadyInDatabase() {
         //given
         SubscriptionInput correctSubscriptionInput = getValidSubscription();
-        when(repository.save(any())).thenThrow(new RuntimeException());
+        when(repository.save(any())).thenThrow(new DuplicateKeyException(""));
 
         //when
         Executable lambdaUnderTest = () -> underTest.createSubscription(correctSubscriptionInput);

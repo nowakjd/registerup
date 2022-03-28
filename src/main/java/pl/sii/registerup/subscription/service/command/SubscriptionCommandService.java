@@ -1,5 +1,6 @@
 package pl.sii.registerup.subscription.service.command;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import pl.sii.registerup.subscription.persistance.SubscriptionEntity;
 import pl.sii.registerup.subscription.persistance.SubscriptionRepository;
@@ -33,7 +34,7 @@ public class SubscriptionCommandService {
         try {
             SubscriptionEntity newSubscription = subscriptionRepository.save(subscriptionEntity);
             return subscriptionOutputMapper.map(newSubscription);
-        } catch (RuntimeException e) {
+        } catch (DuplicateKeyException e) {
             SubscriptionCreationException exception = new SubscriptionCreationException();
             exception.addError(subscriptionInput.getEmail() + " is already in database");
             throw exception;

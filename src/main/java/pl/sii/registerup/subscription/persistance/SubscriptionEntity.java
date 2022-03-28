@@ -1,20 +1,25 @@
 package pl.sii.registerup.subscription.persistance;
 
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class SubscriptionEntity {
 
-    private Long id;
 
+    @Id
+    private String id;
+
+    @Indexed(unique = true)
     private String email;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

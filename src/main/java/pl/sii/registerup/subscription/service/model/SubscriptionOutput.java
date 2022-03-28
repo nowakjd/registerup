@@ -1,15 +1,15 @@
 package pl.sii.registerup.subscription.service.model;
 
 public class SubscriptionOutput {
-    private final Long id;
+    private final String id;
     private final String email;
 
-    public SubscriptionOutput(Long id, String email) {
+    public SubscriptionOutput(String id, String email) {
         this.id = id;
         this.email = email;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

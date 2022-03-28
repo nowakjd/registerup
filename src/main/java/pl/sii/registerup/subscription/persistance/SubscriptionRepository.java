@@ -5,8 +5,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 /**
- This is a repository.
-  */
+ * This is a repository.
+ */
 public interface SubscriptionRepository extends MongoRepository<SubscriptionEntity, String> {
     SubscriptionEntity save(SubscriptionEntity subscriptionEntity);
 

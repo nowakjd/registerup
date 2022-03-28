@@ -15,7 +15,7 @@ public class SubscriptionCreationException extends RuntimeException {
         return !errors.isEmpty();
     }
 
-    Collection<String> getErrors() {
+    public Collection<String> getErrors() {
         return Collections.unmodifiableCollection(errors);
     }
 }
