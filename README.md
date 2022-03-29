@@ -26,12 +26,16 @@ If you would like to develop locally we recommend using docker, it is used for s
 
 ### Setup
 
-### Jacoco plugins
-
+You need Docker and docker-compose which is a part of Docker desktop. Clone this repo and start the database server
+configuration We do this with docker-compose, run docker-compose up then you can access database from 
+http://localhost:27017. Also, database credentials are needed, report to our team for the appropriate database data
+or create your own credentials based on **.env.example** which contains sample credentials.
 
 ### Deploying the app
 
-To deploy to **registerup.sii.pl** you need to wait - we will add app server soon.
+The **registerup.sii.pl** application server is created from the docker-compose.yml file (the same file is implemented by the 
+database server). The app uses [Jacoco plugin](https://www.jacoco.org/jacoco/) and [Jenkins](https://www.jenkins.io/) automation server to develop it even better
+This application is under development, please wait for more details.
 
 ### Contact us
 
