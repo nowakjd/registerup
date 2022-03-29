@@ -20,7 +20,7 @@ public class SubscriptionController {
         this.subscriptionCommandService = subscriptionCommandService;
     }
 
-    @PostMapping("/subscriber")
+    @PostMapping("/subscriptions")
     ResponseEntity<SubscriptionOutput> createSubscription(@RequestBody SubscriptionInput subscriptionInput) {
         return new ResponseEntity<>(subscriptionCommandService.createSubscription(subscriptionInput),
                 HttpStatus.CREATED);
