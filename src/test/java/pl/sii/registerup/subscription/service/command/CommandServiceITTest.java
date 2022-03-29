@@ -25,7 +25,7 @@ class CommandServiceITTest {
         SubscriptionOutput output = service.createSubscription(input);
 
         // then
-        assertThat(output.getEmail()).isEqualTo("john.doe@gsii.pl");
+        assertThat(output.getEmail()).isEqualTo("john.doe@sii.pl");
         assertThat(output.getId()).isNotNull();
     }
 
