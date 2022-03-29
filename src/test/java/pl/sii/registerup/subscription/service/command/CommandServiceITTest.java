@@ -19,13 +19,13 @@ class CommandServiceITTest {
     @Test
     void happyPath() {
         // given
-        SubscriptionInput input = new SubscriptionInput("john.doe@gmail.com");
+        SubscriptionInput input = new SubscriptionInput("john.doe@sii.pl");
 
         // when
         SubscriptionOutput output = service.createSubscription(input);
 
         // then
-        assertThat(output.getEmail()).isEqualTo("john.doe@gmail.com");
+        assertThat(output.getEmail()).isEqualTo("john.doe@gsii.pl");
         assertThat(output.getId()).isNotNull();
     }
 
