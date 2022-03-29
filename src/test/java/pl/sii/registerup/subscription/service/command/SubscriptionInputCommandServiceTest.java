@@ -15,8 +15,6 @@ import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
 import pl.sii.registerup.subscription.service.model.SubscriptionInput;
 import pl.sii.registerup.subscription.service.model.SubscriptionOutput;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -45,7 +43,6 @@ class SubscriptionInputCommandServiceTest {
     void happyPath() {
         //given
         SubscriptionInput correctSubscriptionInput = getValidSubscription();
-        when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
         SubscriptionOutput result = underTest.createSubscription(correctSubscriptionInput);
         //then
@@ -61,7 +58,6 @@ class SubscriptionInputCommandServiceTest {
     void wrongEmail(String email) {
         //given
         SubscriptionInput subscriptionInput = getSubscriptionWithEmail(email);
-        when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
         Executable lambdaUnderTest = () -> underTest.createSubscription(subscriptionInput);
         //then
@@ -79,7 +75,6 @@ class SubscriptionInputCommandServiceTest {
         // given
         SubscriptionInput subscriptionInput = getSubscriptionWithEmail(email);
         when(repository.save(any())).thenAnswer(a -> a.getArgument(0));
-        when(repository.findByEmail(any())).thenReturn(Optional.empty());
         //when
         Executable lambdaUnderTest = () -> underTest.createSubscription(subscriptionInput);
         // then
