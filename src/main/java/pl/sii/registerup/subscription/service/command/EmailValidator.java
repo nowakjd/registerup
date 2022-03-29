@@ -23,16 +23,14 @@ public class EmailValidator {
 
         if (isEmpty(subscriptionInput.getEmail())) {
             exception.addError("Email is required");
-        }
-
-        if (!isEmpty(subscriptionInput.getEmail())
-                && isEmailInvalid(subscriptionInput.getEmail())) {
-            exception.addError(subscriptionInput.getEmail() + "  is not a valid email");
-        }
-
-        if (!exception.getErrors().isEmpty()) {
             throw exception;
         }
+
+        if (isEmailInvalid(subscriptionInput.getEmail())) {
+            exception.addError(subscriptionInput.getEmail() + "  is not a valid email");
+            throw exception;
+        }
+
         return true;
     }
 

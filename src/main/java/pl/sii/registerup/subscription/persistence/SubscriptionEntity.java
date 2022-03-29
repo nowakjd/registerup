@@ -1,4 +1,4 @@
-package pl.sii.registerup.subscription.persistance;
+package pl.sii.registerup.subscription.persistence;
 
 
 import org.springframework.data.annotation.Id;

@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.dao.DuplicateKeyException;
-import pl.sii.registerup.subscription.persistance.SubscriptionRepository;
+import pl.sii.registerup.subscription.persistence.SubscriptionRepository;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionInputMapper;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
 import pl.sii.registerup.subscription.service.model.SubscriptionInput;

@@ -2,8 +2,8 @@ package pl.sii.registerup.subscription.service.command;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import pl.sii.registerup.subscription.persistance.SubscriptionEntity;
-import pl.sii.registerup.subscription.persistance.SubscriptionRepository;
+import pl.sii.registerup.subscription.persistence.SubscriptionEntity;
+import pl.sii.registerup.subscription.persistence.SubscriptionRepository;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionInputMapper;
 import pl.sii.registerup.subscription.service.mapper.SubscriptionOutputMapper;
 import pl.sii.registerup.subscription.service.model.SubscriptionInput;
