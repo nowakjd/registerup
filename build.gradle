@@ -20,8 +20,10 @@ jar {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.mongodb:mongo-java-driver:3.12.10'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'com.spt-development:spt-development-logging-spring:2.0.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.2.3'
 }
 
 tasks.named('test') {
