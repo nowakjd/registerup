@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'checkstyle'
+	id 'jacoco'
 }
 
 group = 'pl.sii'
@@ -12,11 +14,46 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+	enabled = false
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'com.spt-development:spt-development-logging-spring:2.0.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.2.3'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport{
+	dependsOn test
+	reports {
+		xml.enabled true
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+			        "pl/sii/registerup/configuration/*"
+			])
+		}))
+	}
+}
+
+checkstyleMain {
+	source ='src/main/java'
+	configFile file("config/checkstyle/checkstyle-main.xml")
+	configProperties.checkstyleSuppressionsPath = file("config/checkstyle-main-suppressions.xml").absolutePath
+}
+
+checkstyleTest {
+	source ='src/test/java'
+	configFile file("config/checkstyle/checkstyle-tests.xml")
+	configProperties.checkstyleSuppressionsPath = file("config/checkstyle-tests-suppressions.xml").absolutePath
 }
